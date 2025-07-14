@@ -2,6 +2,7 @@ services:
   - type: web
     name: music-bot
     env: python
+    envVersion: 3  # или 3.10, 3.11 — смотря какая нужна
+    branch: main
     buildCommand: pip install -r requirements.txt
     startCommand: python FULL_MUSIC_BOT.py
-

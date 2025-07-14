@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: hosting
+    env: python
+    buildCommand: poetry install
+    startCommand: poetry run python main.py  # или другая ваша команда запуска
+    envVars:
+      - key: POETRY_VIRTUALENVS_CREATE
+        value: "false"

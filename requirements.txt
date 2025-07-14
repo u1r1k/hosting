@@ -3,3 +3,4 @@ tgcrypto
 yt_dlp
 aiofiles
 asyncpg
+aiogram

@@ -2,3 +2,4 @@ pyrogram
 tgcrypto
 yt_dlp
 aiofiles
+asyncpg

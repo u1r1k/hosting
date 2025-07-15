@@ -4,11 +4,3 @@ yt_dlp
 aiofiles
 asyncpg
 aiogram
-json
-time
-threading
-signal
-sys
-logging
-os
-asyncio

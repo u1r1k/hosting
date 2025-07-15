@@ -4,7 +4,6 @@ yt_dlp
 aiofiles
 asyncpg
 aiogram
-tempfile
 json
 time
 threading

@@ -5,3 +5,8 @@ aiofiles
 asyncpg
 aiogram
 psutil
+
+# Для автоматической загрузки cookies из браузера
+keyring
+pycryptodomex
+brotli

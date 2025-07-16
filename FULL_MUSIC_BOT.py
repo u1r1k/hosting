@@ -19,6 +19,9 @@ import asyncpg
 from datetime import datetime, timedelta
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Optional, List, Dict, Any
+from aiogram.webhook.aiohttp_server import SimpleRequestHandler
+from aiogram.webhook.aiohttp_server import setup_application
+
 
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import Command

@@ -1454,7 +1454,7 @@ async def on_shutdown(app):
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
-     asyncio.set_event_loop(loop)
+    asyncio.set_event_loop(loop)
     if DATABASE_URL:
         loop.run_until_complete(db.connect())
 

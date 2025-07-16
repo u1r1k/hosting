@@ -1448,20 +1448,28 @@ async def on_startup(app):
     print(f"✅ Webhook установлен: {webhook_url}")
 
 async def on_shutdown(app):
+    print("🛑 Webhook снимается и сессия закрывается...")
     await bot.delete_webhook()
-    print("🛑 Webhook снят")
     await bot.session.close()
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
+    loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
+
+    # Если есть БД:
     if DATABASE_URL:
         loop.run_until_complete(db.connect())
 
     app = web.Application()
     app['bot'] = bot
-    setup_application(app, dp, bot=bot)
+
+    # Регистрируем webhook
+    SimpleRequestHandler(dispatcher=dp, bot=bot).register(app, path="/")
+    setup_application(app, dp)
+
+    # Добавляем хук запуска и завершения
     app.on_startup.append(on_startup)
     app.on_shutdown.append(on_shutdown)
 
-    web.run_app(app, host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    web.run_app(app, host="0.0.0.0", port=port)

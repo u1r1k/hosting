@@ -1439,30 +1439,3 @@ def signal_handler(signum, frame):
     print("Shutting down...")
     sys.exit(0)
 
-async def main():
-    print("🎵 ПОЛНОФУНКЦИОНАЛЬНЫЙ МУЗЫКАЛЬНЫЙ БОТ ЗАПУСК")
-    print(f"⏰ Старт: {start_time}")
-    
-    signal.signal(signal.SIGINT, signal_handler)
-    signal.signal(signal.SIGTERM, signal_handler)
-    
-    # Подключение к базе данных
-    if DATABASE_URL:
-        await db.connect()
-    
-    # Запуск систем поддержания активности
-    start_http_server()
-    health_monitor_only()
-    
-    print("✅ Все системы запущены")
-    print("🎵 Музыкальный бот готов к работе!")
-    
-    try:
-        await dp.start_polling(bot, skip_updates=True)
-    except Exception as e:
-        print(f"Error: {e}")
-        # Только логирование, без автоматического перезапуска
-        print("Bot stopped, waiting for manual restart...")
-
-if __name__ == "__main__":
-    asyncio.run(main())

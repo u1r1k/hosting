@@ -1439,3 +1439,27 @@ def signal_handler(signum, frame):
     print("Shutting down...")
     sys.exit(0)
 
+from aiohttp import web
+from aiogram.webhook.aiohttp_server import setup_application
+
+async def on_startup(app):
+    webhook_url = f"https://{os.getenv('RENDER_EXTERNAL_HOSTNAME')}/"
+    await bot.set_webhook(webhook_url)
+    print(f"✅ Webhook установлен: {webhook_url}")
+
+async def on_shutdown(app):
+    await bot.delete_webhook()
+    print("🛑 Webhook снят")
+
+if name == "__main__":
+    loop = asyncio.get_event_loop()
+    if DATABASE_URL:
+        loop.run_until_complete(db.connect())
+
+    app = web.Application()
+    app['bot'] = bot
+    setup_application(app, dp, bot=bot)
+    app.on_startup.append(on_startup)
+    app.on_shutdown.append(on_shutdown)
+
+    web.run_app(app, host="0.0.0.0", port=5000)

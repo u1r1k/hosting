@@ -1450,9 +1450,11 @@ async def on_startup(app):
 async def on_shutdown(app):
     await bot.delete_webhook()
     print("🛑 Webhook снят")
+    await bot.session.close()
 
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
+     asyncio.set_event_loop(loop)
     if DATABASE_URL:
         loop.run_until_complete(db.connect())
 
